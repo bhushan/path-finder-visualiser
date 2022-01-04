@@ -5,6 +5,6 @@
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, 35px);
+    grid-template-columns: repeat(auto-fit, 20px);
     grid-gap: 2px;
 }

@@ -2,15 +2,6 @@ import React from 'react';
 import Node from './components/Node';
 import './App.css'
 
-const BOARD_COL = 24;
-const BOARD_ROW = 16;
-
-const START_NODE_COL = 2;
-const START_NODE_ROW = 5;
-
-const FINISH_NODE_COL = 22;
-const FINISH_NODE_ROW = 14;
-
 const createNode = (col: number, row: number) => {
   return {
     col,
@@ -22,6 +13,10 @@ const createNode = (col: number, row: number) => {
 
 const range = (max: number) => Array.from(Array(max).keys())
 
+const randomNumber = (min: number, max: number) => {
+  return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
 const grid = () => {
   return range(BOARD_ROW).map(row => {
     return range(BOARD_COL).map(col => {
@@ -29,6 +24,15 @@ const grid = () => {
     });
   });
 }
+
+const BOARD_COL = 41;
+const BOARD_ROW = 28;
+
+const START_NODE_COL = randomNumber(0, BOARD_COL);
+const START_NODE_ROW = randomNumber(0, BOARD_ROW);
+
+const FINISH_NODE_COL = randomNumber(0, BOARD_COL);
+const FINISH_NODE_ROW = randomNumber(0, BOARD_ROW);
 
 const App = () => {
   return (
