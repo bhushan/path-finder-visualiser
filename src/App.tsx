@@ -1,9 +1,24 @@
 import React from 'react';
+import Node from './components/Node';
+import './App.css'
 
-function App() {
+const NODE_SIZE = 408;
+
+const range = (max: number) => Array.from(Array(max).keys())
+
+const App = () => {
   return (
-    <div>
-      hello
+    <div className="container">
+      <div className="grid">
+        {
+          range(NODE_SIZE).map(item => {
+            return <Node
+              key={item}
+              value={item}
+            />
+          })
+        }
+      </div>
     </div>
   );
 }

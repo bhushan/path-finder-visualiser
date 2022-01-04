@@ -1,0 +1,15 @@
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 35px);
+    grid-gap: 2px;
+}
+
+.grid .node {
+    background-color: lightgray;
+    aspect-ratio: 1;
+}
