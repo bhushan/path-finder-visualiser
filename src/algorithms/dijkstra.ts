@@ -1,10 +1,6 @@
-import { NodeInterface } from 'App';
-import { START_NODE_ROW, START_NODE_COL, FINISH_NODE_ROW, FINISH_NODE_COL } from 'components/Board/constants';
+import { NodeInterface } from 'types';
 
-export const playDijkstra = (grid: NodeInterface[][]) => {
-  const startNode = grid[START_NODE_ROW][START_NODE_COL];
-  const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
-
+export const playDijkstra = (grid: NodeInterface[][], startNode: NodeInterface, finishNode: NodeInterface) => {
   const visitedNodesInOrder = [];
   startNode.distance = 0;
   const unvisitedNodes = getAllNodes(grid);

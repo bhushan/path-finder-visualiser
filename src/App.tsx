@@ -2,60 +2,68 @@ import React, { useState } from 'react';
 import './App.css'
 import { playDijkstra, getNodesInShortestPathOrder } from './algorithms/dijkstra';
 import Board from './components/Board';
+import type { NodeInterface } from 'types';
+import { randomNumber, range } from 'helpers/utils'
 
-import { range } from 'helpers/utils'
+import { BOARD_ROW, BOARD_COL } from 'components/Board/constants';
 
-import {
-  START_NODE_ROW,
-  START_NODE_COL,
-  FINISH_NODE_ROW,
-  FINISH_NODE_COL,
-  BOARD_ROW,
-  BOARD_COL
-} from 'components/Board/constants';
-
-export interface NodeInterface {
-  col: number
-  row: number
-  isStart: boolean
-  isFinish: boolean
-  distance: number
-  isVisited: boolean
-  previousNode: NodeInterface | undefined,
-}
-
-const createNode = (col: number, row: number): NodeInterface => {
+const createNode = (
+  col: number,
+  row: number,
+  startNodeCol: number,
+  startNodeRow: number,
+  finishNodeCol: number,
+  finishNodeRow: number
+): NodeInterface => {
   return {
     col,
     row,
-    isStart: row === START_NODE_ROW && col === START_NODE_COL,
-    isFinish: row === FINISH_NODE_ROW && col === FINISH_NODE_COL,
+    isStart: row === startNodeRow && col === startNodeCol,
+    isFinish: row === finishNodeRow && col === finishNodeCol,
     distance: Infinity,
     isVisited: false,
     previousNode: undefined
   };
 };
 
-const createGrid = (): NodeInterface[][] => {
-  return range(BOARD_ROW).map(row => {
-    return range(BOARD_COL).map(col => {
-      return createNode(col, row);
+const createGrid = (
+  boardRow: number,
+  boardCol: number,
+  startNodeCol: number,
+  startNodeRow: number,
+  finishNodeCol: number,
+  finishNodeRow: number
+): NodeInterface[][] => {
+  return range(boardRow).map(row => {
+    return range(boardCol).map(col => {
+      return createNode(col, row, startNodeCol, startNodeRow, finishNodeCol, finishNodeRow);
     });
   });
 }
+
 const App = () => {
-  const initialGrid = createGrid();
+  const [ startNodeRow, setStartNodeRowState ] = useState(randomNumber(0, BOARD_ROW));
+  const [ startNodeCol, setStartNodeColState ] = useState(randomNumber(0, BOARD_COL));
+  const [ finishNodeRow, setFinishNodeRowState ] = useState(randomNumber(0, BOARD_ROW));
+  const [ finishNodeCol, setFinishNodeColState ] = useState(randomNumber(0, BOARD_COL));
 
-  const [ grid ] = useState(initialGrid);
+  const initialGrid = createGrid(BOARD_ROW, BOARD_COL, startNodeCol, startNodeRow, finishNodeCol, finishNodeRow);
 
-  const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+  const [ grid, setGridState ] = useState(initialGrid);
 
   const handlePlay = () => {
-    const visitedNodesInOrder = playDijkstra(grid)
+    const startNode = grid[startNodeRow][startNodeCol];
+    const finishNode = grid[finishNodeRow][finishNodeCol];
+
+    const visitedNodesInOrder = playDijkstra(grid, startNode, finishNode);
     if (visitedNodesInOrder) {
       const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
       animateDijkstra(visitedNodesInOrder, nodesInShortestPathOrder);
     }
+  }
+
+  const handleReset = () => {
+    console.log('reset');
   }
 
   const animateDijkstra = (visitedNodesInOrder: NodeInterface[], nodesInShortestPathOrder: NodeInterface[]) => {
@@ -93,10 +101,16 @@ const App = () => {
   return (
     <div className="container">
       <button
-        className="my-1"
+        className="my-1 mr-1"
         onClick={handlePlay}
       >
         Play
+      </button>
+      <button
+        className="my-1"
+        onClick={handleReset}
+      >
+        Reset
       </button>
       <Board grid={grid} />
     </div>

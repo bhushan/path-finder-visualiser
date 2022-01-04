@@ -3,13 +3,10 @@ import type { NodeProps } from './types'
 
 import './Node.css'
 
-const Node: FC<NodeProps> = ({ isStart, isFinish, id }) => {
-  const startClass = isStart ? 'node-start' : '';
-  const finishClass = isFinish ? 'node-end' : '';
-
+const Node: FC<NodeProps> = ({ id, classes }) => {
   return <div
     id={id}
-    className={`node ` + startClass + finishClass}
+    className={classes}
   />
 }
 
