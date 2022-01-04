@@ -1,6 +1,10 @@
-import { NodeInterface } from '../App';
+import { NodeInterface } from 'App';
+import { START_NODE_ROW, START_NODE_COL, FINISH_NODE_ROW, FINISH_NODE_COL } from 'components/Board/constants';
 
-export const playDijkstra = (grid: NodeInterface[][], startNode: NodeInterface, finishNode: NodeInterface) => {
+export const playDijkstra = (grid: NodeInterface[][]) => {
+  const startNode = grid[START_NODE_ROW][START_NODE_COL];
+  const finishNode = grid[FINISH_NODE_ROW][FINISH_NODE_COL];
+
   const visitedNodesInOrder = [];
   startNode.distance = 0;
   const unvisitedNodes = getAllNodes(grid);
@@ -41,7 +45,7 @@ function getUnvisitedNeighbors(node: NodeInterface, grid: NodeInterface[][]) {
   return neighbors.filter(neighbor => !neighbor.isVisited);
 }
 
-function getAllNodes(grid: NodeInterface[][]) {
+function getAllNodes(grid: NodeInterface[][]): NodeInterface[] {
   const nodes = [];
   for (const row of grid) {
     for (const node of row) {
@@ -53,12 +57,13 @@ function getAllNodes(grid: NodeInterface[][]) {
 
 // Backtracks from the finishNode to find the shortest path.
 // Only works when called *after* the dijkstra method above.
-export function getNodesInShortestPathOrder(finishNode: NodeInterface | undefined) {
+export function getNodesInShortestPathOrder(finishNode: NodeInterface | undefined): NodeInterface[] {
   const nodesInShortestPathOrder = [];
   let currentNode = finishNode;
   while (currentNode !== undefined) {
     nodesInShortestPathOrder.unshift(currentNode);
     currentNode = currentNode.previousNode;
   }
+
   return nodesInShortestPathOrder;
 }
