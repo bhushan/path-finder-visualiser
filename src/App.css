@@ -8,8 +8,3 @@
     grid-template-columns: repeat(auto-fit, 35px);
     grid-gap: 2px;
 }
-
-.grid .node {
-    background-color: lightgray;
-    aspect-ratio: 1;
-}

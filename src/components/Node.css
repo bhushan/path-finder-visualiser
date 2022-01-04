@@ -1,0 +1,12 @@
+.node {
+    background-color: lightgray;
+    aspect-ratio: 1;
+}
+
+.node-start {
+    background-color: red;
+}
+
+.node-end {
+    background-color: green;
+}
