@@ -8,3 +8,8 @@
     grid-template-columns: repeat(auto-fit, 20px);
     grid-gap: 2px;
 }
+
+.my-1 {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
