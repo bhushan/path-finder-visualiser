@@ -63,7 +63,8 @@ const App = () => {
   }
 
   const handleReset = () => {
-    console.log('reset');
+    window.location.reload();
+    console.log('find better reset solution');
   }
 
   const animateDijkstra = (visitedNodesInOrder: NodeInterface[], nodesInShortestPathOrder: NodeInterface[]) => {
