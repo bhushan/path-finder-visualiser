@@ -42,14 +42,14 @@ const createGrid = (
 }
 
 const App = () => {
-  const [ startNodeRow, setStartNodeRowState ] = useState(randomNumber(0, BOARD_ROW));
-  const [ startNodeCol, setStartNodeColState ] = useState(randomNumber(0, BOARD_COL));
-  const [ finishNodeRow, setFinishNodeRowState ] = useState(randomNumber(0, BOARD_ROW));
-  const [ finishNodeCol, setFinishNodeColState ] = useState(randomNumber(0, BOARD_COL));
+  const [ startNodeRow, ] = useState(randomNumber(0, BOARD_ROW));
+  const [ startNodeCol, ] = useState(randomNumber(0, BOARD_COL));
+  const [ finishNodeRow, ] = useState(randomNumber(0, BOARD_ROW));
+  const [ finishNodeCol, ] = useState(randomNumber(0, BOARD_COL));
 
   const initialGrid = createGrid(BOARD_ROW, BOARD_COL, startNodeCol, startNodeRow, finishNodeCol, finishNodeRow);
 
-  const [ grid, setGridState ] = useState(initialGrid);
+  const [ grid, ] = useState(initialGrid);
 
   const handlePlay = () => {
     const startNode = grid[startNodeRow][startNodeCol];
